@@ -259,7 +259,7 @@ void MPU6050_Base::setFullScaleGyroRange(uint8_t range) {
  * @return factory trim value
  * @see MPU6050_RA_SELF_TEST_X
  */
-uint8_t MPU6050::getAccelXSelfTestFactoryTrim() {
+uint8_t MPU6050_Base::getAccelXSelfTestFactoryTrim() {
     I2Cdev::readByte(devAddr, MPU6050_RA_SELF_TEST_X, &buffer[0]);
 	I2Cdev::readByte(devAddr, MPU6050_RA_SELF_TEST_A, &buffer[1]);	
     return (buffer[0]>>3) | ((buffer[1]>>4) & 0x03);
@@ -269,7 +269,7 @@ uint8_t MPU6050::getAccelXSelfTestFactoryTrim() {
  * @return factory trim value
  * @see MPU6050_RA_SELF_TEST_Y
  */
-uint8_t MPU6050::getAccelYSelfTestFactoryTrim() {
+uint8_t MPU6050_Base::getAccelYSelfTestFactoryTrim() {
     I2Cdev::readByte(devAddr, MPU6050_RA_SELF_TEST_Y, &buffer[0]);
 	I2Cdev::readByte(devAddr, MPU6050_RA_SELF_TEST_A, &buffer[1]);	
     return (buffer[0]>>3) | ((buffer[1]>>2) & 0x03);
@@ -279,7 +279,7 @@ uint8_t MPU6050::getAccelYSelfTestFactoryTrim() {
  * @return factory trim value
  * @see MPU6050_RA_SELF_TEST_Z
  */
-uint8_t MPU6050::getAccelZSelfTestFactoryTrim() {
+uint8_t MPU6050_Base::getAccelZSelfTestFactoryTrim() {
     I2Cdev::readBytes(devAddr, MPU6050_RA_SELF_TEST_Z, 2, buffer);	
     return (buffer[0]>>3) | (buffer[1] & 0x03);
 }
@@ -288,7 +288,7 @@ uint8_t MPU6050::getAccelZSelfTestFactoryTrim() {
  * @return factory trim value
  * @see MPU6050_RA_SELF_TEST_X
  */
-uint8_t MPU6050::getGyroXSelfTestFactoryTrim() {
+uint8_t MPU6050_Base::getGyroXSelfTestFactoryTrim() {
     I2Cdev::readByte(devAddr, MPU6050_RA_SELF_TEST_X, buffer);	
     return (buffer[0] & 0x1F);
 }
@@ -297,7 +297,7 @@ uint8_t MPU6050::getGyroXSelfTestFactoryTrim() {
  * @return factory trim value
  * @see MPU6050_RA_SELF_TEST_Y
  */
-uint8_t MPU6050::getGyroYSelfTestFactoryTrim() {
+uint8_t MPU6050_Base::getGyroYSelfTestFactoryTrim() {
     I2Cdev::readByte(devAddr, MPU6050_RA_SELF_TEST_Y, buffer);	
     return (buffer[0] & 0x1F);
 }
@@ -306,7 +306,7 @@ uint8_t MPU6050::getGyroYSelfTestFactoryTrim() {
  * @return factory trim value
  * @see MPU6050_RA_SELF_TEST_Z
  */
-uint8_t MPU6050::getGyroZSelfTestFactoryTrim() {
+uint8_t MPU6050_Base::getGyroZSelfTestFactoryTrim() {
     I2Cdev::readByte(devAddr, MPU6050_RA_SELF_TEST_Z, buffer);	
     return (buffer[0] & 0x1F);
 }
@@ -2741,7 +2741,7 @@ uint8_t MPU6050_Base::getFIFOByte() {
     return buffer[0];
 }
 
-void MPU6050::getFIFOBytes(uint8_t *data, uint8_t length) {
+void MPU6050_Base::getFIFOBytes(uint8_t *data, uint8_t length) {
     if(length > 0){
         I2Cdev::readBytes(devAddr, MPU6050_RA_FIFO_R_W, length, data);
     } else {
@@ -3114,7 +3114,7 @@ bool MPU6050_Base::writeProgMemoryBlock(const uint8_t *data, uint16_t dataSize, 
     return writeMemoryBlock(data, dataSize, bank, address, verify, true);
 }
 
-bool MPU6050::writeDMPConfigurationSet(const uint8_t *data, uint16_t dataSize, bool useProgMem) {
+bool MPU6050_Base::writeDMPConfigurationSet(const uint8_t *data, uint16_t dataSize, bool useProgMem) {
     uint8_t *progBuffer = 0;
 	uint8_t success, special;
     uint16_t i, j;
