@@ -643,7 +643,7 @@ uint8_t MPU6050_6Axis_MotionApps20::dmpReadAndProcessFIFOPacket(uint8_t numPacke
         if ((status = dmpProcessFIFOPacket(buf)) > 0) return status;
 
         // increment external process count variable, if supplied
-        if (processed != 0) *processed++;
+        if (processed != 0) (*processed)++;
     }
     return 0;
 }
